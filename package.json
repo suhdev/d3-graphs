@@ -1,0 +1,24 @@
+{
+  "name": "d3-graphs",
+  "version": "1.0.0",
+  "description": "A set of responsive d3 graphs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suhdev/d3-graphs.git"
+  },
+  "author": "Suhail Abood <suhail.abood@gmail.com> (suhailabood.me)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/suhdev/d3-graphs/issues"
+  },
+  "homepage": "https://github.com/suhdev/d3-graphs#readme",
+  "devDependencies": {
+    "jslint": "^0.10.1",
+    "tslint": "^3.11.0",
+    "typescript": "^1.8.10"
+  }
+}

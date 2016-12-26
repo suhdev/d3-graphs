@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Graphs</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.13.1/lodash.min.js"></script>
+        <script type="text/javascript" src="/scripts/graphs.min.js"></script>
+        <style>
+            #canvas,#canvas2,#canvas3{
+                height:400px;
+                width:100%;
+            }
+            
+            .data-line{
+                fill:none;
+                stroke:black;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="canvas">
+        </div>
+        <div id="canvas2">
+        </div>
+        <div id="canvas3">
+        </div>
+        <script type="text/javascript">
+        var sample = {
+    "country" : "Austria",
+    "id" : "austria",
+    "index" : 0,
+    "sectors" : [ {
+      "data" : [ 17300.2, 17701, 18980.4, 18484.1, 18035.9, 18355.5, 19753.9, 20751.5, 21487.5, 21232.5, 22511, 22725, 22722.7, 22989.9, 23356.3, 22708.9 ],
+      "id" : "publicServices",
+      "index" : 0
+    }, {
+      "data" : [ 1712.2, 1822.4, 1784, 1752.7, 1884.4, 1975, 1966.9, 1892, 2124.8, 2613.6, 2016.8, 1882.9, 1907.7, 1871.5, 2003, 1909 ],
+      "id" : "defence",
+      "index" : 1
+    }, {
+      "data" : [ 3008.4, 2989.9, 3108, 3194.1, 3268.2, 3445.9, 3443.8, 3597.2, 3648, 3865.9, 3997.2, 3989.1, 4056.6, 4213.2, 4238.1, 4428.5 ],
+      "id" : "publicSafety",
+      "index" : 2
+    }, {
+      "data" : [ 10340.4, 9703.3, 11516.6, 11177.7, 11971.1, 20713.8, 16458.7, 17052.8, 16724, 18451.4, 22129.9, 19286.6, 18945.1, 19890, 18330.2, 24460.6 ],
+      "id" : "economicAffairs",
+      "index" : 3
+    }, {
+      "data" : [ 936.9, 947.7, 1044.2, 1055.2, 1205, 1168.8, 1258.2, 1258.8, 1250.5, 1312.9, 1536.6, 1692.3, 1474.5, 1551.1, 1592.6, 1527 ],
+      "id" : "environmentalProtection",
+      "index" : 4
+    }, {
+      "data" : [ 1196.3, 1386.1, 1314.8, 1269.4, 1291.3, 1124.1, 1166.6, 1140.4, 1153, 1221.3, 1343.2, 1322.2, 1250, 1305.9, 1271.6, 1327.1 ],
+      "id" : "housing",
+      "index" : 5
+    }, {
+      "data" : [ 14806.1, 15229, 15557.4, 16578.2, 17198.6, 18217.5, 18910.5, 19642, 20925.2, 22090.2, 22608.1, 23297.9, 23988.8, 24744.6, 25215.9, 26137.4 ],
+      "id" : "health",
+      "index" : 6
+    }, {
+      "data" : [ 2046.9, 2001.9, 2097.8, 2203.4, 2207, 2325, 2432.3, 2519.5, 2961.9, 2850.7, 2898.8, 2868, 2893, 2976.1, 3005.5, 3007.2 ],
+      "id" : "culture",
+      "index" : 7
+    }, {
+      "data" : [ 10891.8, 11094.7, 11401.7, 11702, 12148.4, 11879.4, 12190.4, 12835.3, 13292.6, 14226.1, 14687.9, 15119.4, 15444.3, 15920.6, 16300.3, 16519.1 ],
+      "id" : "education",
+      "index" : 8
+    }, {
+      "data" : [ 42945.6, 44404, 45477.2, 47304.2, 48627.3, 49844.2, 51398.8, 53134, 55131.9, 57508.7, 61147.4, 63226.4, 64148.4, 66611.9, 69033, 71463 ],
+      "id" : "social",
+      "index" : 9
+    } ],
+    "totals" : [ 105184.80000000002, 107280, 112282.1, 114720.99999999999, 117837.20000000001, 129049.2, 128980.1, 133823.5, 138699.4, 145373.3, 154876.9, 155409.8, 156831.1, 162074.80000000002, 164346.5, 173487.8 ]
+  }; 
+  var sample2 = {
+    "country" : "Belgium",
+    "id" : "belgium",
+    "index" : 1,
+    "sectors" : [ {
+      "data" : [ 17300.2, 17701, 18980.4, 18484.1, 18035.9, 18355.5, 19753.9, 20751.5, 21487.5, 21232.5, 22511, 22725, 22722.7, 22989.9, 23356.3, 22708.9 ],
+      "id" : "publicServices",
+      "index" : 0
+    }, {
+      "data" : [ 1712.2, 1822.4, 1784, 1752.7, 1884.4, 1975, 1966.9, 1892, 2124.8, 2613.6, 2016.8, 1882.9, 1907.7, 1871.5, 2003, 1909 ],
+      "id" : "defence",
+      "index" : 1
+    }, {
+      "data" : [ 3008.4, 2989.9, 3108, 3194.1, 3268.2, 3445.9, 3443.8, 3597.2, 3648, 3865.9, 3997.2, 3989.1, 4056.6, 4213.2, 4238.1, 4428.5 ],
+      "id" : "publicSafety",
+      "index" : 2
+    }, {
+      "data" : [ 10340.4, 9703.3, 11516.6, 11177.7, 11971.1, 20713.8, 16458.7, 17052.8, 16724, 18451.4, 22129.9, 19286.6, 18945.1, 19890, 18330.2, 24460.6 ],
+      "id" : "economicAffairs",
+      "index" : 3
+    }, {
+      "data" : [ 936.9, 947.7, 1044.2, 1055.2, 1205, 1168.8, 1258.2, 1258.8, 1250.5, 1312.9, 1536.6, 1692.3, 1474.5, 1551.1, 1592.6, 1527 ],
+      "id" : "environmentalProtection",
+      "index" : 4
+    }, {
+      "data" : [ 1196.3, 1386.1, 1314.8, 1269.4, 1291.3, 1124.1, 1166.6, 1140.4, 1153, 1221.3, 1343.2, 1322.2, 1250, 1305.9, 1271.6, 1327.1 ],
+      "id" : "housing",
+      "index" : 5
+    }, {
+      "data" : [ 14806.1, 15229, 15557.4, 16578.2, 17198.6, 18217.5, 18910.5, 19642, 20925.2, 22090.2, 22608.1, 23297.9, 23988.8, 24744.6, 25215.9, 26137.4 ],
+      "id" : "health",
+      "index" : 6
+    }, {
+      "data" : [ 2046.9, 2001.9, 2097.8, 2203.4, 2207, 2325, 2432.3, 2519.5, 2961.9, 2850.7, 2898.8, 2868, 2893, 2976.1, 3005.5, 3007.2 ],
+      "id" : "culture",
+      "index" : 7
+    }, {
+      "data" : [ 10891.8, 11094.7, 11401.7, 11702, 12148.4, 11879.4, 12190.4, 12835.3, 13292.6, 14226.1, 14687.9, 15119.4, 15444.3, 15920.6, 16300.3, 16519.1 ],
+      "id" : "education",
+      "index" : 8
+    }, {
+      "data" : [ 42945.6, 44404, 45477.2, 47304.2, 48627.3, 49844.2, 51398.8, 53134, 55131.9, 57508.7, 61147.4, 63226.4, 64148.4, 66611.9, 69033, 71463 ],
+      "id" : "social",
+      "index" : 9
+    } ],
+    "totals" : [ 105184.80000000002, 107280, 112282.1, 114720.99999999999, 117837.20000000001, 129049.2, 128980.1, 133823.5, 138699.4, 145373.3, 154876.9, 155409.8, 156831.1, 162074.80000000002, 164346.5, 173487.8 ]
+  };
+        var graph = new org.suh.LineChart(document.getElementById('canvas'),{
+            margins:{
+                left:50,
+                top:50,
+                bottom:50,
+                right:50
+            },
+            xAccessor:function(d,i){
+                
+                return i+1999; 
+            },
+            yAccessor:function(d){
+                return d;
+            }
+        });
+        var data = _(sample.sectors).map(function(e){
+            return e.data[0]; 
+        }).value();
+        graph.setData(sample.sectors.map(function(d){
+            return d.data;
+        })).render();
+        var graph2 = new org.suh.DonutChart(document.getElementById("canvas2"),{
+            margins:{
+                left:50,
+                top:50,
+                bottom:50,
+                right:50
+            },
+            colors:["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"],
+            colorAccessor:function(e,i){
+                return i; 
+            },
+            valueAccessor:function(e){
+                return e;
+            }
+        });
+        graph2.setData(data).render();
+        var categories = _(sample.sectors).map(function(e){
+            return e.id;
+        }).value(); 
+        var newData = [];
+        _(sample.sectors).forEach(function(e,i){
+            var obj = {
+                name:e.id,
+                countries:[]
+            };
+            _([sample,sample2]).forEach(function(e){
+                obj[e.country] = e.sectors[i].data[0]; 
+                obj.countries.push({
+                    name:e.country,
+                    value:e.sectors[i].data[0] * Math.random()
+                }); 
+            });
+            newData.push(obj);
+        });
+        console.log(newData)
+        // data = _([sample,sample2]).map(function(e){
+        //     // newData.push()
+        //     var obj = _(e.sectors).keyBy('id').mapValues(function(ek){
+        //         return ek.data[0]; 
+        //     }).value();
+        //     obj.country = e.country;
+        //     obj.sectors = e.sectors;
+        //     return obj; 
+        // }).value();
+        var graph3 = new org.suh.BarChart(document.getElementById("canvas3"),{
+            margins:{
+                left:50,
+                top:50,
+                bottom:50,
+                right:50
+            },
+            categories:categories,
+            legendLabels:_(newData[0].countries).map(function(e){
+                return e.name;
+            }).value(),
+            groupAccessor:function(d){
+                console.log(d);
+                return d.name;
+            },
+            itemAccessor:function(d){
+                return d.countries;
+            },
+            yAccessor:function(d){
+                console.log(d);
+                return d.value;
+            },
+            xAccessor:function(d){
+                return d.name;
+            }
+
+        });
+        graph3.setData(newData).render();
+        </script>
+    </body>
+</html>

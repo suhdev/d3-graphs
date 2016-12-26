@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "rootDir": "./src",
+        "outFile": "./dist/scripts/graphs.min.js"
+    },
+    "exclude": [
+        "node_modules",
+        "bower_components",
+        "jspm_packages"
+    ]
+}
